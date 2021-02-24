@@ -1,0 +1,68 @@
+---
+title: "HW2"
+author: "Caitlin Bolz"
+date: "2/25/2021"
+output: word_document
+---
+
+# Part 1
+Build a logistic regression model to estimate P(RHC). State clearly how you deal with missing values and how you arrive at your logistic model(e.g., how and why you chose the terms, including interactions, if any).Give the R code and output for reproducing your logistic fit.
+
+# Part 2
+
+R Code for Plotting Important Scores
+```{r}
+par(las=1,mar=c(5,12,4,2),cex=1)
+leg.col= c("orange","yellow")
+leg.txt = c("highly important","likely important")
+x = read.table("imp.scr",header=TRUE)
+score = x$Score
+vars = x$Variable
+type = x$Type
+barcol = rep("orange",length(vars))
+barcol[type == "L"] = "yellow"
+barcol[type == "U"] = "cyan"
+n = sum(x$Type != "U")
+barplot(rev(score[1:n]),names.arg=rev(vars[1:n]),
+		col=rev(barcol[1:n]),horiz=TRUE,
+xlab="GUIDE importance scores", main = "Scores of Important RHC Variables")
+abline(v=1,col="red",lty=2)
+legend("bottomright",legend=leg.txt,fill=leg.col)
+
+```
+
+# Part 3
+What does the logistic model say about the effects of the variables? How does it agree or disagree with the GUIDE tree and importance scores?
+
+# Part 4
+Build a GUIDE forest model to estimate P(RHC) and plot the estimates versus those from logistic regression (see slide 54). Say which method is more accurate and why you think so.
+
+R code for Plotting Predicted Probabilities
+```{r}
+tree = read.table("classpred.txt",header=TRUE)
+forest = read.table("forestpred.txt",header=TRUE)
+tree.p = tree[,6]
+forest.p = forest[,3]
+plot(forest.p ~ tree.p, xlab="Tree Predicted Probabilities",
+ylab="Forest Predicted Probabilities",col="blue", main = "RHC Prediced Probabitlites of Forest vs Tree")
+abline(c(0,1),col="red")
+```
+
+
+#Part 5
+Include in your report the input and output files for GUIDE forest and importance scores
+
+Attached to my canvas submission is my input and output files for the GUIDE forest (forestii.txt and forestout.txt) and important scores (impin.txt and impout.txt).
+
+
+Files I need to include
+* impin.txt
+* impout.txt
+* forestin.txt
+* forestout.txt
+* maybe imp.pdf in report?
+
+Files Used in this code
+* imp.scr
+* classpred.txt
+* forestpred.txt
