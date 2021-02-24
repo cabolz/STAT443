@@ -1,0 +1,135 @@
+             GGG   U   U  I  DDDD   EEEE
+            G   G  U   U  I  D   D  E
+            G      U   U  I  D   D  E
+            G  GG  U   U  I  D   D  EEE
+            G   G  U   U  I  D   D  E
+            G   G  U   U  I  D   D  E
+             GGG    UUU   I  DDDD   EEEE
+   
+ GUIDE Classification and Regression Trees and Forests
+ Version 36.2 (Build date: January 10, 2021)       
+ Compiled with Visual Fortran 64 18.0.1.156 on Windows 10              
+ Copyright (c) 1997-2020 Wei-Yin Loh. All rights reserved.
+ This software is based upon work supported by the U.S. Army Research Office,
+ the National Science Foundation and the National Institutes of Health.
+  
+ This job was started on 02/16/21 at 10:31
+  
+ Random forest of classification trees
+ No pruning
+ Data description file: rhcdsc1.txt
+ Training sample file: rhcdata.txt
+ Missing value code: NA
+ Records in data file start on line 2
+ 20 N variables changed to S
+ D variable is swang1
+ Number of records in data file: 5735
+ Length of longest entry in data file: 19
+ Missing values found among categorical variables
+ Separate categories will be created for missing categorical variables
+ Missing values found among non-categorical variables
+ Number of classes: 2
+ Training sample class proportions of D variable swang1:
+ Class  #Cases     Proportion
+ NoRHC    3551     0.61918047
+ RHC      2184     0.38081953
+  
+ Summary information for training sample of size 5735
+ d=dependent, b=split and fit cat variable using indicator variables,
+ c=split-only categorical, i=fit-only categorical (via indicators),
+ s=split-only numerical, n=split and fit numerical, f=fit-only numerical,
+ m=missing-value flag variable, p=periodic variable, w=weight
+                                                  #Codes/           
+                                                  Levels/           
+  Column  Name            Minimum      Maximum    Periods   #Missing
+       2  cat1       c                                  9
+       3  cat2       c                                  6     4535
+       4  ca         c                                  3
+      10  cardiohx   c                                  2
+      11  chfhx      c                                  2
+      12  dementhx   c                                  2
+      13  psychhx    c                                  2
+      14  chrpulhx   c                                  2
+      15  renalhx    c                                  2
+      16  liverhx    c                                  2
+      17  gibledhx   c                                  2
+      18  malighx    c                                  2
+      19  immunhx    c                                  2
+      20  transhx    c                                  2
+      21  amihx      c                                  2
+      22  age        s    18.04        101.8    
+      23  sex        c                                  2
+      24  edu        s    0.000        30.00    
+      29  aps1       s    3.000        147.0    
+      30  scoma1     s    0.000        100.0    
+      31  meanbp1    s    10.00        259.0                    80
+      32  wblc1      s    0.000        192.0    
+      33  hrt1       s    8.000        250.0                   159
+      34  resp1      s    2.000        100.0                   136
+      35  temp1      s    27.00        43.00    
+      36  pafi1      s    11.60        937.5    
+      37  alb1       s   0.3000        29.00    
+      38  hema1      s    2.000        66.19    
+      39  bili1      s   0.1000        58.20    
+      40  crea1      s   0.1000        25.10    
+      41  sod1       s    101.0        178.0    
+      42  pot1       s    1.100        11.90    
+      43  paco21     s    1.000        156.0    
+      44  ph1        s    6.579        7.770    
+      45  swang1     d                                  2
+      46  wtkilo1    s    19.50        244.0                   515
+      47  dnr1       c                                  2
+      48  ninsclas   c                                  6
+      49  resp       c                                  2
+      50  card       c                                  2
+      51  neuro      c                                  2
+      52  gastr      c                                  2
+      53  renal      c                                  2
+      54  meta       c                                  2
+      55  hema       c                                  2
+      56  seps       c                                  2
+      57  trauma     c                                  2
+      58  ortho      c                                  2
+      60  urin1      s    0.000        9000.                  3028
+      61  race       c                                  3
+      62  income     c                                  4
+  
+      Total  #cases w/   #missing
+     #cases    miss. D  ord. vals   #X-var   #N-var   #F-var   #S-var
+       5735          0       3443       13        0        0       20
+     #P-var   #M-var   #B-var   #C-var   #I-var
+          0        0        0       30        0
+ Number of cases used for training: 5735
+ Number of split variables: 50
+ Number of cases excluded due to 0 weight or missing D: 0
+  
+ Number of trees in ensemble: 500
+ Number of variables used for splitting: 17
+ Simple node models
+ Estimated priors
+ Unit misclassification costs
+ Univariate split highest priority
+ No interaction splits
+ Fraction of cases used for splitting each node: .0174
+ Maximum number of split levels: 20
+ Minimum node sample size: 28
+ Mean number of terminal nodes:    142.1    
+ 
+ Classification matrix for training sample:
+ Predicted       True class
+ class          NoRHC       RHC
+ NoRHC           3274       719
+ RHC              277      1465
+ Total           3551      2184
+ 
+ Number of cases used for tree construction: 5735
+ Number misclassified: 996
+ Resubstitution estimate of mean misclassification cost: .1737
+ 
+ Number of OOB cases: 5735
+ Number OOB misclassified: 1527
+ OOB estimate of mean misclassification cost: .2663
+ Mean number of trees per OOB observation: 184.04
+ 
+ Predicted class probabilities are stored in forestpred.txt
+ Elapsed time in seconds: 159.95

@@ -1,0 +1,372 @@
+             GGG   U   U  I  DDDD   EEEE
+            G   G  U   U  I  D   D  E
+            G      U   U  I  D   D  E
+            G  GG  U   U  I  D   D  EEE
+            G   G  U   U  I  D   D  E
+            G   G  U   U  I  D   D  E
+             GGG    UUU   I  DDDD   EEEE
+   
+ GUIDE Classification and Regression Trees and Forests
+ Version 36.2 (Build date: January 10, 2021)       
+ Compiled with Visual Fortran 64 18.0.1.156 on Windows 10              
+ Copyright (c) 1997-2020 Wei-Yin Loh. All rights reserved.
+ This software is based upon work supported by the U.S. Army Research Office,
+ the National Science Foundation and the National Institutes of Health.
+  
+ This job was started on 02/16/21 at 10:45
+  
+ Classification tree
+ No pruning
+ Data description file: rhcdsc1.txt
+ Training sample file: rhcdata.txt
+ Missing value code: NA
+ Records in data file start on line 2
+ 20 N variables changed to S
+ D variable is swang1
+ Number of records in data file: 5735
+ Length of longest entry in data file: 19
+ Missing values found among categorical variables
+ Separate categories will be created for missing categorical variables
+ Missing values found among non-categorical variables
+ Number of classes: 2
+ Training sample class proportions of D variable swang1:
+ Class  #Cases     Proportion
+ NoRHC    3551     0.61918047
+ RHC      2184     0.38081953
+  
+      Total  #cases w/   #missing
+     #cases    miss. D  ord. vals   #X-var   #N-var   #F-var   #S-var
+       5735          0       3443       13        0        0       20
+     #P-var   #M-var   #B-var   #C-var   #I-var
+          0        0        0       30        0
+ Number of cases used for training: 5735
+ Number of split variables: 50
+ Number of cases excluded due to 0 weight or missing D: 0
+  
+ Importance scoring of variables
+ Simple node models
+ Estimated priors
+ Unit misclassification costs
+ Univariate split highest priority
+ Interaction splits 2nd priority; no linear splits
+ Split values for N and S variables based on exhaustive search
+ Maximum number of split levels: 4
+ Minimum node sample size: 57
+ Starting 300 permutations to standardize means of importance scores
+ Finished permutations to standardize means of importance scores
+ 95 and 99% thresholds for unadjusted importance scores =   21.276  25.602
+  
+ Note: final tree is shorter due to pruning of sibling nodes with same predicted values.
+ Structure of final tree. Each terminal node is marked with a T.
+  
+ Node cost is node misclassification cost divided by number of training cases
+        Node    Total    Train    Predicted        Node    Split          Interacting
+       label    cases    cases    class            cost    variables      variable
+           1     5735     5735    NoRHC          3.808E-01 cat1 
+           2     1683     1683    RHC            4.599E-01 meanbp1 
+           4     1117     1117    RHC            3.796E-01 pafi1 
+           8T     655      655    RHC            3.038E-01 resp1 
+           9      462      462    RHC            4.870E-01 ninsclas 
+          18T     244      244    RHC            3.730E-01 bili1 
+          19T     218      218    NoRHC          3.853E-01 card 
+           5      566      566    NoRHC          3.816E-01 alb1 
+          10      158      158    RHC            4.810E-01 pafi1 
+          20T      72       72    RHC            3.194E-01 - 
+          21T      86       86    NoRHC          3.837E-01 - 
+          11T     408      408    NoRHC          3.284E-01 bili1 
+           3     4052     4052    NoRHC          3.147E-01 pafi1 
+           6     1292     1292    NoRHC          4.837E-01 resp 
+          12      581      581    RHC            4.200E-01 dnr1 
+          24T     515      515    RHC            3.903E-01 cat1 
+          25T      66       66    NoRHC          3.485E-01 - 
+          13      711      711    NoRHC          4.051E-01 seps 
+          26T     110      110    RHC            3.636E-01 - 
+          27T     601      601    NoRHC          3.627E-01 aps1 
+           7T    2760     2760    NoRHC          2.355E-01 aps1 
+  
+ Number of terminal nodes of final tree: 11
+ Total number of nodes of final tree: 21
+ Second best split variable (based on curvature test) at root node is aps1
+  
+ Classification tree:
+ For categorical variable splits, values not in training data go to the right
+  
+ Node 1: cat1 = "CHF", "MOSF w/Sepsis"
+   Node 2: meanbp1 <= 68.500000 or NA
+     Node 4: pafi1 <= 266.15625
+       Node 8: RHC
+     Node 4: pafi1 > 266.15625 or NA
+       Node 9: ninsclas = "No insurance", "Private", "Private & Medicare"
+         Node 18: RHC
+       Node 9: ninsclas /= "No insurance", "Private", "Private & Medicare"
+         Node 19: NoRHC
+   Node 2: meanbp1 > 68.500000
+     Node 5: alb1 <= 2.9499511
+       Node 10: pafi1 <= 216.25000
+         Node 20: RHC
+       Node 10: pafi1 > 216.25000 or NA
+         Node 21: NoRHC
+     Node 5: alb1 > 2.9499511 or NA
+       Node 11: NoRHC
+ Node 1: cat1 /= "CHF", "MOSF w/Sepsis"
+   Node 3: pafi1 <= 142.35938
+     Node 6: resp = "No"
+       Node 12: dnr1 = "No"
+         Node 24: RHC
+       Node 12: dnr1 /= "No"
+         Node 25: NoRHC
+     Node 6: resp /= "No"
+       Node 13: seps = "Yes"
+         Node 26: RHC
+       Node 13: seps /= "Yes"
+         Node 27: NoRHC
+   Node 3: pafi1 > 142.35938 or NA
+     Node 7: NoRHC
+ 
+ ***************************************************************
+ 
+ Predictor means below are means of cases with no missing values.
+  
+Node 1: Intermediate node
+ A case goes into Node 2 if cat1 = "CHF", "MOSF w/Sepsis"
+ cat1 mode = "ARF"
+ Class      Number   Posterior
+ NoRHC        3551  0.6192E+00
+ RHC          2184  0.3808E+00
+ Number of training cases misclassified = 2184
+ Predicted class is NoRHC
+ ----------------------------
+Node 2: Intermediate node
+ A case goes into Node 4 if meanbp1 <= 68.500000 or NA
+ meanbp1 mean = 72.674985
+ Class      Number   Posterior
+ NoRHC         774  0.4599E+00
+ RHC           909  0.5401E+00
+ Number of training cases misclassified = 774
+ Predicted class is RHC
+ ----------------------------
+Node 4: Intermediate node
+ A case goes into Node 8 if pafi1 <= 266.15625
+ pafi1 mean = 241.37331
+ Class      Number   Posterior
+ NoRHC         424  0.3796E+00
+ RHC           693  0.6204E+00
+ Number of training cases misclassified = 424
+ Predicted class is RHC
+ ----------------------------
+Node 8: Terminal node
+ Class      Number   Posterior
+ NoRHC         199  0.3038E+00
+ RHC           456  0.6962E+00
+ Number of training cases misclassified = 199
+ Predicted class is RHC
+ ----------------------------
+Node 9: Intermediate node
+ A case goes into Node 18 if ninsclas = "No insurance", "Private",
+ "Private & Medicare"
+ ninsclas mode = "Private"
+ Class      Number   Posterior
+ NoRHC         225  0.4870E+00
+ RHC           237  0.5130E+00
+ Number of training cases misclassified = 225
+ Predicted class is RHC
+ ----------------------------
+Node 18: Terminal node
+ Class      Number   Posterior
+ NoRHC          91  0.3730E+00
+ RHC           153  0.6270E+00
+ Number of training cases misclassified = 91
+ Predicted class is RHC
+ ----------------------------
+Node 19: Terminal node
+ Class      Number   Posterior
+ NoRHC         134  0.6147E+00
+ RHC            84  0.3853E+00
+ Number of training cases misclassified = 84
+ Predicted class is NoRHC
+ ----------------------------
+Node 5: Intermediate node
+ A case goes into Node 10 if alb1 <= 2.9499511
+ alb1 mean = 3.1795715
+ Class      Number   Posterior
+ NoRHC         350  0.6184E+00
+ RHC           216  0.3816E+00
+ Number of training cases misclassified = 216
+ Predicted class is NoRHC
+ ----------------------------
+Node 10: Intermediate node
+ A case goes into Node 20 if pafi1 <= 216.25000
+ pafi1 mean = 239.66683
+ Class      Number   Posterior
+ NoRHC          76  0.4810E+00
+ RHC            82  0.5190E+00
+ Number of training cases misclassified = 76
+ Predicted class is RHC
+ ----------------------------
+Node 20: Terminal node
+ Class      Number   Posterior
+ NoRHC          23  0.3194E+00
+ RHC            49  0.6806E+00
+ Number of training cases misclassified = 23
+ Predicted class is RHC
+ ----------------------------
+Node 21: Terminal node
+ Class      Number   Posterior
+ NoRHC          53  0.6163E+00
+ RHC            33  0.3837E+00
+ Number of training cases misclassified = 33
+ Predicted class is NoRHC
+ ----------------------------
+Node 11: Terminal node
+ Class      Number   Posterior
+ NoRHC         274  0.6716E+00
+ RHC           134  0.3284E+00
+ Number of training cases misclassified = 134
+ Predicted class is NoRHC
+ ----------------------------
+Node 3: Intermediate node
+ A case goes into Node 6 if pafi1 <= 142.35938
+ pafi1 mean = 211.08630
+ Class      Number   Posterior
+ NoRHC        2777  0.6853E+00
+ RHC          1275  0.3147E+00
+ Number of training cases misclassified = 1275
+ Predicted class is NoRHC
+ ----------------------------
+Node 6: Intermediate node
+ A case goes into Node 12 if resp = "No"
+ resp mode = "Yes"
+ Class      Number   Posterior
+ NoRHC         667  0.5163E+00
+ RHC           625  0.4837E+00
+ Number of training cases misclassified = 625
+ Predicted class is NoRHC
+ ----------------------------
+Node 12: Intermediate node
+ A case goes into Node 24 if dnr1 = "No"
+ dnr1 mode = "No"
+ Class      Number   Posterior
+ NoRHC         244  0.4200E+00
+ RHC           337  0.5800E+00
+ Number of training cases misclassified = 244
+ Predicted class is RHC
+ ----------------------------
+Node 24: Terminal node
+ Class      Number   Posterior
+ NoRHC         201  0.3903E+00
+ RHC           314  0.6097E+00
+ Number of training cases misclassified = 201
+ Predicted class is RHC
+ ----------------------------
+Node 25: Terminal node
+ Class      Number   Posterior
+ NoRHC          43  0.6515E+00
+ RHC            23  0.3485E+00
+ Number of training cases misclassified = 23
+ Predicted class is NoRHC
+ ----------------------------
+Node 13: Intermediate node
+ A case goes into Node 26 if seps = "Yes"
+ seps mode = "No"
+ Class      Number   Posterior
+ NoRHC         423  0.5949E+00
+ RHC           288  0.4051E+00
+ Number of training cases misclassified = 288
+ Predicted class is NoRHC
+ ----------------------------
+Node 26: Terminal node
+ Class      Number   Posterior
+ NoRHC          40  0.3636E+00
+ RHC            70  0.6364E+00
+ Number of training cases misclassified = 40
+ Predicted class is RHC
+ ----------------------------
+Node 27: Terminal node
+ Class      Number   Posterior
+ NoRHC         383  0.6373E+00
+ RHC           218  0.3627E+00
+ Number of training cases misclassified = 218
+ Predicted class is NoRHC
+ ----------------------------
+Node 7: Terminal node
+ Class      Number   Posterior
+ NoRHC        2110  0.7645E+00
+ RHC           650  0.2355E+00
+ Number of training cases misclassified = 650
+ Predicted class is NoRHC
+ ----------------------------
+ ******************************************************
+ Variables used for splitting:
+ alb1
+ cat1
+ dnr1
+ meanbp1
+ ninsclas
+ pafi1
+ resp
+ seps
+ 
+ Number of terminal nodes: 11
+ 
+ Scaled importance scores of predictor variables
+      Score     Rank  Variable
+  2.286E+01     1.00  cat1
+  2.234E+01     2.00  aps1
+  2.012E+01     3.00  crea1
+  1.924E+01     4.00  pafi1
+  1.855E+01     5.00  meanbp1
+  1.219E+01     6.00  alb1
+  1.195E+01     7.00  neuro
+  1.066E+01     8.00  card
+  1.020E+01     9.00  hema1
+  1.010E+01    10.00  cat2
+  9.314E+00    11.00  wtkilo1
+  7.929E+00    12.00  seps
+  6.409E+00    13.00  resp
+  6.073E+00    14.00  dnr1
+  6.028E+00    15.00  bili1
+  5.410E+00    16.00  paco21
+  4.260E+00    17.00  hrt1
+  3.979E+00    18.00  transhx
+  3.860E+00    19.00  chrpulhx
+  3.860E+00    20.00  resp1
+  3.311E+00    21.00  ninsclas
+  3.183E+00    22.00  dementhx
+  2.968E+00    23.00  ph1
+  2.163E+00    24.00  psychhx
+  2.029E+00    25.00  renal
+  1.913E+00    26.00  gastr
+  1.896E+00    27.00  income
+  1.748E+00    28.00  cardiohx
+  1.412E+00    29.00  urin1
+  1.385E+00    30.00  trauma
+  1.247E+00    31.00  age
+  1.194E+00    32.00  sex
+ --------- variables above this line are highly important -----
+  1.188E+00    33.00  edu
+  1.176E+00    34.00  sod1
+  1.056E+00    35.00  immunhx
+ --------- variables below this line are unimportant ----------
+  9.440E-01    36.00  malighx
+  9.115E-01    37.00  wblc1
+  8.731E-01    38.00  ca
+  8.616E-01    39.00  amihx
+  8.071E-01    40.00  scoma1
+  6.766E-01    41.00  chfhx
+  5.859E-01    42.00  gibledhx
+  4.112E-01    43.00  renalhx
+  4.094E-01    44.00  pot1
+  3.971E-01    45.00  ortho
+  3.430E-01    46.00  liverhx
+  3.412E-01    47.00  hema
+  3.280E-01    48.00  meta
+  2.586E-01    49.00  temp1
+  1.296E-01    50.00  race
+ 
+ Variables with scores above 1.19 are highly important
+ Variables with scores between 1.0 and 1.19 are likely important
+ Variables with scores below 1.0 are unimportant
+ No. highly important, likely important, and unimportant split variables: 32, 3, 15
+ LaTeX code for tree is in imp.tex
+ Importance scores are stored in imp.scr
+ Elapsed time in seconds: 128.83
