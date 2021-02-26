@@ -5,34 +5,135 @@ date: "2/25/2021"
 output: word_document
 ---
 
+```{r warning=FALSE}
+library(dplyr)
+library(fastDummies)
+library(mice)
+```
+ use mutate
+ convert variable to dummy
+ then use glm
+
 # Part 1
-Build a logistic regression model to estimate P(RHC). State clearly how you deal with missing values and how you arrive at your logistic model(e.g., how and why you chose the terms, including interactions, if any).Give the R code and output for reproducing your logistic fit.
 
-# Part 2
+* Build a logistic regression model to estimate P(RHC). 
+* State clearly how you deal with missing values and how you arrive at your logistic model(e.g., how and why you chose the terms, including interactions, if any).
+* Give the R code and output for reproducing your logistic fit.
 
-R Code for Plotting Important Scores
 ```{r}
-par(las=1,mar=c(5,12,4,2),cex=1)
+rhc = read.table("rhcdata.txt", header = T, row.names = 1)
+```
+
+Looking at the structure of the data and which variables have missing values.
+```{r}
+str(rhc)
+sapply(rhc, function(x) sum(is.na(x)))
+```
+
+
+Converting the variables that were characters to become factors. Also turning swang1 (indicator if RHC or noRHC into an integer)
+```{r}
+rhc1 = rhc %>% 
+  mutate(
+    cat1 = as.factor(cat1),
+    cat2 = as.factor(cat2),
+    ca = as.factor(ca),
+    sex = as.factor(sex),
+    sex = as.integer(sex),
+    swang1 = as.factor(swang1),
+    dnr1  = as.factor(dnr1),
+    resp  = as.factor(resp),
+    card  = as.factor(card),
+    neuro  = as.factor(neuro),
+    gastr  = as.factor(gastr),
+    renal  = as.factor(renal),
+    meta  = as.factor(meta),
+    hema  = as.factor(hema),
+    seps  = as.factor(seps),
+    trauma  = as.factor(trauma),
+    ortho  = as.factor(ortho),
+    dnr1  = as.integer(dnr1),
+    resp  = as.integer(resp),
+    card  = as.integer(card),
+    neuro  = as.integer(neuro),
+    gastr  = as.integer(gastr),
+    renal  = as.integer(renal),
+    meta  = as.integer(meta),
+    hema  = as.integer(hema),
+    seps  = as.integer(seps),
+    trauma  = as.integer(trauma),
+    ortho  = as.integer(ortho),
+    ninsclas = as.factor(ninsclas),
+    race = as.factor(race),
+    income = as.factor(income),
+    swang1 = as.integer(swang1)
+    )
+
+str(rhc1)
+```
+
+
+```{r}
+
+init = mice(rhc1, maxit=0) 
+meth = init$method
+predM = init$predictorMatrix
+```
+
+```{r}
+set.seed(103)
+imputed = mice(rhc1, predictorMatrix = predM, m=5)
+```
+
+
+
+
+```{r}
+fit1 = glm(swang1 ~ (cat1	+ ca	+ sadmdte	+ dschdte	+ dthdte	+ lstctdte +	death +	cardiohx	+ chfhx	+ dementhx +	psychhx	+ chrpulhx +	renalhx	+ liverhx	+ gibledhx	+ malighx +	immunhx +	transhx	+ amihx	+ age	+ sex	+ edu +	surv2md1 +	das2d3pc +  t3d30 +	dth30	+ aps1 +	scoma1	+ wblc1 +	temp1 +	pafi1 +	alb1 +	hema1	+ bili1	+ crea1 + sod1 +	pot1 + paco21	+ ph1	+  dnr1	+ ninsclas +	resp	+ card +	neuro	+ gastr	+ renal	+ meta	+ hema	+ seps	+ trauma +	ortho	+ adld3p	+ race	+ income +	ptid +	survtime), data = rhc1)
+```
+
+
+```{r}
+summary(fit1) # display results
+confint(fit1) # 95% CI for the coefficients
+exp(coef(fit1)) # exponentiated coefficients
+exp(confint(fit1)) # 95% CI for exponentiated coefficients
+pred = predict(fit1, type="response") # predicted values
+res = residuals(fit1, type="deviance") # predicted residuals
+```
+
+
+
+
+# Plotting Important Scores
+```{r}
+par(las = 1, mar = c(5,5,4,2), cex = .75)
+
 leg.col= c("orange","yellow")
 leg.txt = c("highly important","likely important")
+
 x = read.table("imp.scr",header=TRUE)
 score = x$Score
 vars = x$Variable
 type = x$Type
+
 barcol = rep("orange",length(vars))
 barcol[type == "L"] = "yellow"
 barcol[type == "U"] = "cyan"
 n = sum(x$Type != "U")
-barplot(rev(score[1:n]),names.arg=rev(vars[1:n]),
-		col=rev(barcol[1:n]),horiz=TRUE,
-xlab="GUIDE importance scores", main = "Scores of Important RHC Variables")
-abline(v=1,col="red",lty=2)
-legend("bottomright",legend=leg.txt,fill=leg.col)
+
+barplot(rev(score[1:n]), names.arg = rev(vars[1:n]),	col = rev(barcol[1:n]), horiz = T, xlab = "GUIDE Importance Scores", main = "Scores of Important RHC Variables")
+
+abline(v = 1, col = "red", lty = 2)
+legend("bottomright", legend = leg.txt, fill = leg.col)
 
 ```
 
 # Part 3
 What does the logistic model say about the effects of the variables? How does it agree or disagree with the GUIDE tree and importance scores?
+
+
+
 
 # Part 4
 Build a GUIDE forest model to estimate P(RHC) and plot the estimates versus those from logistic regression (see slide 54). Say which method is more accurate and why you think so.
@@ -49,20 +150,11 @@ abline(c(0,1),col="red")
 ```
 
 
-#Part 5
-Include in your report the input and output files for GUIDE forest and importance scores
-
-Attached to my canvas submission is my input and output files for the GUIDE forest (forestii.txt and forestout.txt) and important scores (impin.txt and impout.txt).
-
+# Part 5
+Attached to my canvas submission is my input and output files for the GUIDE forest (forestin.txt and forestout.txt) and important scores (impin.txt and impout.txt).
 
 Files I need to include
 * impin.txt
 * impout.txt
 * forestin.txt
 * forestout.txt
-* maybe imp.pdf in report?
-
-Files Used in this code
-* imp.scr
-* classpred.txt
-* forestpred.txt
