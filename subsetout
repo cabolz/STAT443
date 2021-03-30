@@ -1,0 +1,33 @@
+             GGG   U   U  I  DDDD   EEEE
+            G   G  U   U  I  D   D  E
+            G      U   U  I  D   D  E
+            G  GG  U   U  I  D   D  EEE
+            G   G  U   U  I  D   D  E
+            G   G  U   U  I  D   D  E
+             GGG    UUU   I  DDDD   EEEE
+   
+ GUIDE Classification and Regression Trees and Forests
+ Version 36.2 (Build date: January 10, 2021)       
+ Compiled with Visual Fortran 64 18.0.1.156 on Windows 10              
+ Copyright (c) 1997-2020 Wei-Yin Loh. All rights reserved.
+ This software is based upon work supported by the U.S. Army Research Office,
+ the National Science Foundation and the National Institutes of Health.
+  
+ This job was started on 03/16/21 at 13:34
+  
+ No pruning
+ Data description file: ceclass.dsc
+ Training sample file: cedata.txt
+ Missing value code: NA
+ Records in data file start on line 2
+ Number of M variables associated with C variables: 33
+ 423 N variables changed to S
+ D variable is INTRDVX_
+ Number of records in data file: 4693
+ Length of longest entry in data file: 11
+ Missing values found among categorical variables
+ Separate categories will be created for missing categorical variables
+ Missing values found among non-categorical variables
+ Number of classes: 3
+  Warning: "x" variables will be excluded
+ Input your choice:            1
